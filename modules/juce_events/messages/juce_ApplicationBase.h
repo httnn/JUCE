@@ -286,7 +286,7 @@ public:
     */
     bool isInitialising() const noexcept                        { return stillInitialising; }
     
-    virtual bool openURL(const String&) { return false; }
+    virtual void openURL(const String&) {}
 
 
     //==============================================================================
