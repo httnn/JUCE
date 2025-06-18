@@ -234,6 +234,9 @@ API_AVAILABLE (ios (13.0))
 - (UISceneConfiguration*)      application: (UIApplication*) application
     configurationForConnectingSceneSession: (UISceneSession*) connectingSceneSession
                                    options: (UISceneConnectionOptions*) options API_AVAILABLE (ios (13.0));
+- (BOOL) application:(UIApplication *) app 
+             openURL:(NSURL *) url 
+             options:(NSDictionary<NSString *,id> *) options;
 
 #if JUCE_PUSH_NOTIFICATIONS
 
@@ -349,6 +352,18 @@ API_AVAILABLE (ios (13.0))
     auto* config = connectingSceneSession.configuration;
     config.delegateClass = JuceAppSceneDelegate.class;
     return config;
+}
+
+- (BOOL) application:(UIApplication *) application
+             openURL:(NSURL *) url 
+             options:(NSDictionary<NSString *,id> *) options
+{
+    ignoreUnused (application);
+
+    if (auto* app = JUCEApplicationBase::getInstance())
+        return app->openURL(String(url.path.UTF8String));
+    
+    return false;
 }
 
 - (void) setPushNotificationsDelegateToUse: (NSObject*) delegate
