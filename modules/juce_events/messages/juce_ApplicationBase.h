@@ -285,6 +285,8 @@ public:
         properly.
     */
     bool isInitialising() const noexcept                        { return stillInitialising; }
+    
+    virtual bool openURL(const String&) { return false; }
 
 
     //==============================================================================
